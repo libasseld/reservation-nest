@@ -1,0 +1,17 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  username: String
+  password: String
+}
+
+type Product {
+  name: String!
+}
+
+type Query {
+  fetchProducts: [Product!]!
+  fetchUsers: [User!]!
+}
