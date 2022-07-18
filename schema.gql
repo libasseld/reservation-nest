@@ -8,10 +8,22 @@ type User {
 }
 
 type Product {
+  id: ID!
   name: String!
+  price: Float!
 }
 
 type Query {
   fetchProducts: [Product!]!
   fetchUsers: [User!]!
+  fetchUser(username: String!): User!
+}
+
+type Mutation {
+  createProduct(productInput: ProductInput!): Product!
+}
+
+input ProductInput {
+  name: String!
+  price: Float!
 }
