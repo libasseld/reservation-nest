@@ -13,17 +13,31 @@ type Product {
   price: Float!
 }
 
+type Reservation {
+  products: [Product!]!
+  amount: Float!
+  client: User!
+}
+
 type Query {
   fetchProducts: [Product!]!
+  fetchProduct(id: ID!): Product!
   fetchUsers: [User!]!
   fetchUser(username: String!): User!
+  fetchReservations: [Reservation!]!
 }
 
 type Mutation {
   createProduct(productInput: ProductInput!): Product!
+  makeReservation(reservationInput: ReservationInput!): Reservation!
 }
 
 input ProductInput {
   name: String!
   price: Float!
+}
+
+input ReservationInput {
+  products: [ProductInput!]!
+  amount: Float!
 }

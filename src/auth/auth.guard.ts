@@ -1,5 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
+import { getRequestFromContext } from 'src/commons/utils';
 import { AuthService } from './auth.service';
 
 @Injectable()
@@ -8,7 +9,7 @@ export class AuthGuard implements CanActivate {
   async canActivate(
     context: ExecutionContext,
   ): Promise<boolean> {
-    const req = context.switchToHttp().getRequest();
+    const req = getRequestFromContext(context);
     const authorization = req.headers.authorization;
     if(authorization) {
       const token = authorization.replace('Bearer ', '');
