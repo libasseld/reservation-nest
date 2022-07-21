@@ -4,6 +4,7 @@ import { ObjectId } from "mongoose";
 import { AuthGuard } from "src/auth/auth.guard";
 import { CurrentUser } from "src/auth/decorators/current-user.decorator";
 import { IUser } from "src/users/interfaces/user.interface";
+import { ProductReservation } from "./dto/product-reservation.type";
 import { Product } from "./dto/product.entity";
 import { ProductInput } from "./dto/product.input";
 import { IProduct } from "./interfaces/product.interface";
@@ -32,5 +33,10 @@ export class ProductsResolver {
         @Args({ name: 'id', type: () => ID }) id: ObjectId,
     ): Promise<IProduct> {
         return this.productService.findOneByIdOrFail(id);
+    }
+
+    @Query(returns => [ProductReservation])
+    async fetchProductsReservations() {
+        return this.productService.fetchProductsReservations();
     }
 }

@@ -7,6 +7,11 @@ type User {
   password: String
 }
 
+type Session {
+  user: User!
+  token: String!
+}
+
 type Product {
   id: ID!
   name: String!
@@ -22,19 +27,35 @@ type Reservation {
 type Query {
   fetchProducts: [Product!]!
   fetchProduct(id: ID!): Product!
+  fetchProductsReservations: [ProductReservation!]!
   fetchUsers: [User!]!
   fetchUser(username: String!): User!
   fetchReservations: [Reservation!]!
 }
 
+union ProductReservation = Product | Reservation
+
 type Mutation {
   createProduct(productInput: ProductInput!): Product!
+  register(registerInput: RegisterInput!): Session!
   makeReservation(reservationInput: ReservationInput!): Reservation!
 }
 
 input ProductInput {
   name: String!
   price: Float!
+}
+
+input RegisterInput {
+  username: String!
+  password: String!
+  role: UserRole!
+}
+
+"""Possible user role"""
+enum UserRole {
+  ADMIN
+  USER
 }
 
 input ReservationInput {
