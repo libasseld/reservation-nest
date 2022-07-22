@@ -30,7 +30,7 @@ export class ProductsResolver {
 
     @Query(returns => Product)
     async fetchProduct(
-        @Args({ name: 'id', type: () => ID }) id: ObjectId,
+        @Args({ name: 'id', type: () => ID }) id: Product['id'],
     ): Promise<IProduct> {
         return this.productService.findOneByIdOrFail(id);
     }

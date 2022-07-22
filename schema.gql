@@ -22,7 +22,11 @@ type Reservation {
   products: [Product!]!
   amount: Float!
   client: User!
+  transactionId: UUID
 }
+
+"""UUID parser"""
+scalar UUID
 
 type Query {
   fetchProducts: [Product!]!

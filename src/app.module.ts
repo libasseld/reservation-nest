@@ -9,6 +9,9 @@ import { AuthModule } from './auth/auth.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ReservationsModule } from './reservations/reservations.module';
+import { GqlUuid } from './commons/graphql/uuid.scalar';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { AppInterceptor } from './app.interceptor';
 
 @Module({
   imports: [
@@ -19,11 +22,18 @@ import { ReservationsModule } from './reservations/reservations.module';
     AuthModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       autoSchemaFile: "schema.gql",
-      driver: ApolloDriver
+      driver: ApolloDriver,
+      resolvers: { UUID: GqlUuid }
     }),
     ReservationsModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: AppInterceptor
+    }
+  ],
 })
 export class AppModule {}
